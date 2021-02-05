@@ -40,5 +40,16 @@ collections:
           value_field: "{{slug}}",
           search_fields: ["title"],
           multiple: true,
+          required: false
         }
-      - { label: "Portrait", name: "portrait", widget: "image", allow_multiple: false, }
+      - { 
+          label: "Portrait",
+          name: "portrait", 
+          widget: "image",
+          allow_multiple: false,
+          media_library: {
+            config: {
+              max_file_size: 200000
+            }
+          }
+        }

@@ -3,7 +3,7 @@ export type PoemCollection = { title: string; author: string; writtenDate: strin
 export type PoetCollection = {
   name: string;
   portrait: string;
-  poems: string[];
+  poems?: string[];
 }
 
 export type Poet = {
