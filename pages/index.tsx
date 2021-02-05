@@ -30,7 +30,7 @@ function getPoetsBySlug(slug: string) {
     name: data.name,
     portraitPath: data.portrait,
     poems: data.poems || [],
-    slug,
+    slug: realSlug,
   } as Poet;
 }
 
