@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "export": "yarn build && next export"
+    "export": "yarn build && next export",
+    "start:netlify-cms-proxy": "yarn netlify-cms-proxy-server"
   },
   "dependencies": {
     "@babel/core": "^7.12.13",
@@ -22,6 +23,7 @@
     "gray-matter": "^4.0.2",
     "moment": "^2.29.1",
     "react-markdown": "^5.0.3",
-    "typescript": "^4.1.3"
+    "typescript": "^4.1.3",
+    "netlify-cms-proxy-server": "^1.3.9"
   }
 }
