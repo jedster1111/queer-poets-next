@@ -2,9 +2,54 @@ import React from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 
-import { attributes, react as Poem } from "../content/poems/myFirstPoem.md";
+import fs from "fs";
+import path from "path";
+import matter from "gray-matter";
+import moment from "moment";
+import ReactMarkdown from "react-markdown";
 
-export default function Home() {
+import { GetStaticProps, InferGetStaticPropsType } from "next";
+
+import { PoemAttributes } from "../src/types";
+
+const poemDirectory = path.join(process.cwd(), "content", "poems");
+
+function getPoemSlugs() {
+  return fs.readdirSync(poemDirectory);
+}
+
+function getPoemBySlug(slug: string) {
+  const realSlug = slug.replace(/\.md$/, "");
+  const fullPath = path.join(poemDirectory, `${realSlug}.md`);
+  const fileContents = fs.readFileSync(fullPath, "utf8");
+  const { data, content } = matter(fileContents);
+
+  return {
+    attributes: {
+      ...data,
+      writtenDate: moment(data.writtenDate).format(),
+    } as PoemAttributes,
+    body: content,
+  };
+}
+
+function getAllPoems() {
+  const slugs = getPoemSlugs();
+  const poems = slugs.map((slug) => getPoemBySlug(slug));
+  return poems;
+}
+
+export const getStaticProps: GetStaticProps<{
+  poems: { attributes: PoemAttributes; body: string }[];
+}> = async () => {
+  const poems = getAllPoems();
+
+  return { props: { poems } };
+};
+
+export default function Home({
+  poems,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,12 +58,13 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
         <div>
-          <h1>{attributes.title}</h1>
-          <Poem />
+          {poems.map(({ attributes, body }) => (
+            <div key={attributes.title}>
+              <h4>{attributes.title}</h4>
+              <ReactMarkdown>{body}</ReactMarkdown>
+            </div>
+          ))}
         </div>
       </main>
 
