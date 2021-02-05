@@ -10,7 +10,7 @@ import ReactMarkdown from "react-markdown";
 
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
-import { PoemAttributes } from "../src/types";
+import { Poem } from "../types";
 
 const poemDirectory = path.join(process.cwd(), "content", "poems");
 
@@ -25,12 +25,10 @@ function getPoemBySlug(slug: string) {
   const { data, content } = matter(fileContents);
 
   return {
-    attributes: {
-      ...data,
-      writtenDate: moment(data.writtenDate).format(),
-    } as PoemAttributes,
+    ...data,
+    writtenDate: moment(data.writtenDate).format(),
     body: content,
-  };
+  } as Poem;
 }
 
 function getAllPoems() {
@@ -40,7 +38,7 @@ function getAllPoems() {
 }
 
 export const getStaticProps: GetStaticProps<{
-  poems: { attributes: PoemAttributes; body: string }[];
+  poems: Poem[];
 }> = async () => {
   const poems = getAllPoems();
 
@@ -59,9 +57,9 @@ export default function Home({
 
       <main className={styles.main}>
         <div>
-          {poems.map(({ attributes, body }) => (
-            <div key={attributes.title}>
-              <h4>{attributes.title}</h4>
+          {poems.map(({ title, body }) => (
+            <div key={title}>
+              <h4>{title}</h4>
               <ReactMarkdown>{body}</ReactMarkdown>
             </div>
           ))}
