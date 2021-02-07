@@ -1,4 +1,4 @@
 declare module "*.md" {
-  const content: { attributes: any; react: any };
-  export = content;
+  const content: { attributes: any; react: any };  // eslint-disable-line
+    export = content;
 }
