@@ -39,16 +39,16 @@ type PoetPageProps = {
 
 export default function PoetPage({ poet, poems }: PoetPageProps): JSX.Element {
     return (
-        <main>
+        <main className={styles.main}>
             <div className={styles.portrait} style={{ backgroundImage: `url(${poet.portraitPath})` }} />
-            <div>
+            <section className={styles.poemsList}>
                 {poems.map((poem) => (
-                    <div key={poem.slug}>
-                        <h4>{poem.title}</h4>
+                    <article key={poem.slug}>
+                        <h3>{poem.title}</h3>
                         <ReactMarkdown>{poem.body}</ReactMarkdown>
-                    </div>
+                    </article>
                 ))}
-            </div>
+            </section>
         </main>
     );
 }

@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <title>Queer Poets</title>
             </Head>
             <Header />
-            <Component {...pageProps} />;
+            <Component {...pageProps} />
         </div>
     );
 }

@@ -1,0 +1,23 @@
+.main {}
+
+.portrait {
+  width: 100%;
+  /* Need to figure out how to not hardcode this height */
+  height: 1200px;
+  overflow: hidden;
+
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  background-size: cover;
+}
+
+.poemsList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 350px;
+  max-width: 1400px;
+
+  width: 768px;
+  margin: 0 auto;
+}
