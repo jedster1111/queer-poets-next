@@ -1,0 +1,60 @@
+.main {}
+
+.imageOuterWrapper {
+    height: 250px;
+}
+
+.imageInnerWrapper {
+    position: relative;
+    max-width: 100%;
+    height: 100%;
+}
+
+.poetsList {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .poetsList {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .poetsList {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+.poetItem {
+  position: relative;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.name {
+  position: absolute;
+  color: white;
+  margin: 0.6em;
+  font-size: 1.8em;
+  bottom: 0;
+}
+
+.portraitWrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.portrait {
+  width: 100%;
+}
+
+
