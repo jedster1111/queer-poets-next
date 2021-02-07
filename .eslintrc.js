@@ -14,6 +14,8 @@ module.exports = {
     "plugin:@typescript-eslint/recommended-requiring-type-checking",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "prettier",
     "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
@@ -24,6 +26,8 @@ module.exports = {
     }
   },
   rules: {
-    "@typescript-eslint/require-await": "off"
+    "@typescript-eslint/require-await": "off",
+    "import/order": 2,
+    "import/newline-after-import": 2
   }
 }
