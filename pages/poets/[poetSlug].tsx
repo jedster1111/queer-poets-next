@@ -1,9 +1,12 @@
 import React from "react";
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import ReactMarkdown from "react-markdown";
+
 import { Poem, Poet } from "../../types";
 import { getPoetBySlug, getPoetSlugs } from "../../utils/data/poets";
-import { getPoemBySlug } from "../../utils/data/poems";
+import { getPoemBySlug, sortPoemsByDate } from "../../utils/data/poems";
+
+import styles from "../../styles/PoetPage.module.css";
 
 export const getStaticPaths: GetStaticPaths<{ poetSlug: string }> = async () => {
     const poetSlugs = getPoetSlugs();
@@ -14,27 +17,30 @@ export const getStaticPaths: GetStaticPaths<{ poetSlug: string }> = async () => 
     };
 };
 
-export const getStaticProps: GetStaticProps<
-    {
-        poet: Poet;
-        poems: Poem[];
-    },
-    { poetSlug: string }
-> = async (context) => {
+type PoetPageParams = {
+    poetSlug: string;
+};
+
+export const getStaticProps: GetStaticProps<PoetPageProps, PoetPageParams> = async (context) => {
     const poetSlug = context.params?.poetSlug;
 
     if (!poetSlug) throw new Error("Couldn't find that poet!");
 
     const poet = getPoetBySlug(poetSlug);
-    const poems = poet.poemSlugs.map(getPoemBySlug);
+    const poems = sortPoemsByDate(poet.poemSlugs.map(getPoemBySlug));
 
     return { props: { poet, poems } };
 };
 
-export default function PoetPage({ poet, poems }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
+type PoetPageProps = {
+    poet: Poet;
+    poems: Poem[];
+};
+
+export default function PoetPage({ poet, poems }: PoetPageProps): JSX.Element {
     return (
-        <div>
-            <div>Poet name: {poet.name}</div>
+        <main>
+            <div className={styles.portrait} style={{ backgroundImage: `url(${poet.portraitPath})` }} />
             <div>
                 {poems.map((poem) => (
                     <div key={poem.slug}>
@@ -43,6 +49,6 @@ export default function PoetPage({ poet, poems }: InferGetStaticPropsType<typeof
                     </div>
                 ))}
             </div>
-        </div>
+        </main>
     );
 }

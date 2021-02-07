@@ -10,8 +10,6 @@ export function getPoetSlugs(): string[] {
 export function getPoetBySlug(slug: string): Poet {
     const { attributes } = parseFile<PoetCollection>(poetDirectory, slug);
 
-    console.log("portraitPath:", attributes.portrait);
-
     return {
         name: attributes.name,
         portraitPath: "/" + attributes.portrait,
