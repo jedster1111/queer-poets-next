@@ -1,4 +1,4 @@
-.main {}
+.wrapper {}
 
 .portrait {
   width: 100%;
@@ -17,7 +17,7 @@
   align-items: flex-start;
   min-width: 350px;
   max-width: 1400px;
+  width: 50%;
 
-  width: 768px;
   margin: 0 auto;
 }

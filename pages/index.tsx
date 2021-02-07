@@ -16,7 +16,7 @@ export const getStaticProps: GetStaticProps<{
 
 export default function PoetsList({ poets }: InferGetStaticPropsType<typeof getStaticProps>): JSX.Element {
     return (
-        <main className={styles.main}>
+        <section className={styles.wrapper}>
             <div className={styles.poetsList}>
                 {poets.map(({ name, slug, portraitPath }) => (
                     <div key={name} className={styles.poetItem}>
@@ -29,6 +29,6 @@ export default function PoetsList({ poets }: InferGetStaticPropsType<typeof getS
                     </div>
                 ))}
             </div>
-        </main>
+        </section>
     );
 }

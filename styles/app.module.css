@@ -29,3 +29,8 @@
 .homeLink {
     text-decoration: none;
 }
+
+.main {
+  grid-area: main;
+  overflow: auto;
+}

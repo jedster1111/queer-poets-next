@@ -32,6 +32,26 @@ export const getStaticProps: GetStaticProps<PoetPageProps, PoetPageParams> = asy
     return { props: { poet, poems } };
 };
 
+const PoemsList = ({ poems }: { poems: Poem[] }): JSX.Element => {
+    if (!poems.length)
+        return (
+            <section className={styles.poemsList}>
+                <p>There are no poems yet!</p>
+            </section>
+        );
+
+    return (
+        <section className={styles.poemsList}>
+            {poems.map((poem) => (
+                <article key={poem.slug}>
+                    <h3>{poem.title}</h3>
+                    <ReactMarkdown>{poem.body}</ReactMarkdown>
+                </article>
+            ))}
+        </section>
+    );
+};
+
 type PoetPageProps = {
     poet: Poet;
     poems: Poem[];
@@ -39,16 +59,9 @@ type PoetPageProps = {
 
 export default function PoetPage({ poet, poems }: PoetPageProps): JSX.Element {
     return (
-        <main className={styles.main}>
+        <article className={styles.wrapper}>
             <div className={styles.portrait} style={{ backgroundImage: `url(${poet.portraitPath})` }} />
-            <section className={styles.poemsList}>
-                {poems.map((poem) => (
-                    <article key={poem.slug}>
-                        <h3>{poem.title}</h3>
-                        <ReactMarkdown>{poem.body}</ReactMarkdown>
-                    </article>
-                ))}
-            </section>
-        </main>
+            <PoemsList poems={poems} />
+        </article>
     );
 }
