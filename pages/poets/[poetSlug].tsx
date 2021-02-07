@@ -1,5 +1,6 @@
 import React from "react";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
+import ReactMarkdown from "react-markdown";
 import { Poem, Poet } from "../../types";
 import { getPoetBySlug, getPoetSlugs } from "../../utils/data/poets";
 import { getPoemBySlug } from "../../utils/data/poems";
@@ -35,9 +36,11 @@ export default function PoetPage({ poet, poems }: InferGetStaticPropsType<typeof
         <div>
             <div>Poet name: {poet.name}</div>
             <div>
-                Poems:{" "}
                 {poems.map((poem) => (
-                    <div key={poem.slug}>{poem.title}</div>
+                    <div key={poem.slug}>
+                        <h4>{poem.title}</h4>
+                        <ReactMarkdown>{poem.body}</ReactMarkdown>
+                    </div>
                 ))}
             </div>
         </div>
