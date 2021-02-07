@@ -1,44 +1,11 @@
 import React from "react";
+import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
-
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-import moment from "moment";
-import ReactMarkdown from "react-markdown";
 import Link from "next/link";
 
-import { GetStaticProps, PageConfig } from "next";
-
-import { PoetCollection, Poet } from "../types";
-import { getFileNamesInFolder, getFolderPath } from "../utils/files";
-
-const poetDirectory = getFolderPath("content", "poets");
-
-function getPoetSlugs() {
-  return getFileNamesInFolder(poetDirectory);
-}
-
-function getPoetsBySlug(slug: string) {
-  const realSlug = slug.replace(/\.md$/, "");
-  const fullPath = path.join(poetDirectory, `${realSlug}.md`);
-  const fileContents = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(fileContents);
-
-  return {
-    name: data.name,
-    portraitPath: data.portrait,
-    poems: data.poems || [],
-    slug: realSlug,
-  } as Poet;
-}
-
-function getAllPoets() {
-  const slugs = getPoetSlugs();
-  const poets = slugs.map((slug) => getPoetsBySlug(slug));
-  return poets;
-}
+import styles from "../styles/Home.module.css";
+import { Poet } from "../types";
+import { getAllPoets } from "../utils/data/poets";
 
 export const getStaticProps: GetStaticProps<{
   poets: Poet[];
@@ -48,7 +15,7 @@ export const getStaticProps: GetStaticProps<{
   return { props: { poets } };
 };
 
-export default function Home({ poets }: { poets: Poet[] }) {
+export default function Home({ poets }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className={styles.container}>
       <Head>

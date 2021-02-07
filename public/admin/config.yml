@@ -4,7 +4,7 @@ backend:
   branch: main
 
 # when using the default proxy server port
-# local_backend: true
+local_backend: true
 
 media_folder: public/img
 public_folder: img
@@ -23,7 +23,7 @@ collections:
           value_field: "{{slug}}",
           search_fields: ["name"]
         }
-      - { label: "Written Date", name: "writtenDate", widget: "datetime" }
+      - { label: "Added Date", name: "addedDate", widget: "datetime" }
       - { label: "Body", name: "body", widget: "markdown" }
   - name: "poets"
     label: "Poets"
