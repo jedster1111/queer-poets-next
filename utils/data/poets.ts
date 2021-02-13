@@ -3,6 +3,9 @@ import { getFolderPath, parseFile, getSlugsInFolder } from "../files";
 
 const poetDirectory = getFolderPath("content", "poets");
 
+const assetPrefix = process.env.assetPrefix || "";
+console.log(assetPrefix);
+
 export function getPoetSlugs(): string[] {
     return getSlugsInFolder(poetDirectory);
 }
@@ -12,7 +15,7 @@ export function getPoetBySlug(slug: string): Poet {
 
     return {
         name: attributes.name,
-        portraitPath: "/" + attributes.portrait,
+        portraitPath: assetPrefix + attributes.portrait,
         poemSlugs: attributes.poems || [],
         slug,
     };

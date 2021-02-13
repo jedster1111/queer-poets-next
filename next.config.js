@@ -1,7 +1,10 @@
 module.exports = {
+  env: {
+    assetPrefix: '/queer-poets-next/',
+  },
+  basePath: '/queer-poets-next',
+  assetPrefix: '/queer-poets-next/',
   webpack: (cfg) => {
-    cfg.basePath = '/queer-poets-next'
-    cfg.assetPrefix = '/queer-poets-next/'
     cfg.module.rules.push({
       test: /\.md$/,
       loader: "frontmatter-markdown-loader",
